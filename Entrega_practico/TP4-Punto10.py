@@ -34,25 +34,26 @@ def Sf(x, L, n = 10):
     for i in np.arange(1, n + 1):
         sum += ((a(i, L) * np.cos((i * np.pi * x) / L)) + (b(i, L) * np.sin((i * np.pi * x) / L)))
     return (a0 / 2) + sum
+    
+def graficar():
+    # x axis.
+    plt.plot(x, np.zeros(np.size(x)), color = 'black')
 
-# x axis.
-plt.plot(x, np.zeros(np.size(x)), color = 'black')
+    # y axis.
+    plt.plot(np.zeros(np.size(x)), x, color = 'black')
 
-# y axis.
-plt.plot(np.zeros(np.size(x)), x, color = 'black')
+    # Original signal.
+    plt.plot(x, f(x), linewidth = 1.5, label = 'Signal')
 
-# Original signal.
-plt.plot(x, f(x), linewidth = 1.5, label = 'Signal')
+    # Approximation signal (Fourier series coefficients).
+    plt.plot(x, Sf(x, L), '.', color = 'red', linewidth = 1.5, label = 'Fourier series')
 
-# Approximation signal (Fourier series coefficients).
-plt.plot(x, Sf(x, L), '.', color = 'red', linewidth = 1.5, label = 'Fourier series')
+    # Specify x and y axes limits.
+    plt.xlim([0, 5])
+    plt.ylim([-2.2, 2.2])
 
-# Specify x and y axes limits.
-plt.xlim([0, 5])
-plt.ylim([-2.2, 2.2])
+    plt.legend(loc = 'upper right', fontsize = '10')
 
-plt.legend(loc = 'upper right', fontsize = '10')
+    plt.show()
 
-plt.show()
-
-#python3 TP4-Punto10.py
+graficar() #python3 TP4-Punto10.py
