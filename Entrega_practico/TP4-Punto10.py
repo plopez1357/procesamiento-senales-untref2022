@@ -7,55 +7,51 @@ la misma frecuencia demuestreo que la señal original.'''
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as integrate
+from scipy import signal
 
-# Define "t" range.
-t = np.linspace(0, 10, 1000)
+# Señal de entrada periódica 
+def f(t):
+    #return np.sin(t)
+    #return np.cos(t)
+    return signal.square(t) #función cuadrada con periodo 2π
 
-# Periodo T de la función.
-T = 2
-
-L = T / 2
-w = (2 * np.pi) / T # es la frecuencia angular de f.
-
-# "f(t)" -> sen(2πt) + cos(4πt) + sen(πt).
-def f(t): 
-    return np.sin(2 * np.pi * t) + np.cos(4 * np.pi * t) + np.sin(np.pi * t)
-
-# "a" coefficient calculation.
-def a(n):
-    return (1 / L) * integrate.quad(lambda t: f(t) * np.cos(n * w * t), -L, L)[0]
-
-# "b" coefficient calculation.
-def b(n):
-    return (1 / L) * integrate.quad(lambda t: f(t) * np.sin(n * w * t), -L, L)[0]
-
-# Fourier series.   
-def Sf(x, L, n = 10):
-    a0 = a(0, L)
-    sum = np.zeros(np.size(x))
-    for i in np.arange(1, n + 1):
-        sum += ((a(i, L) * np.cos(i * w * t)) + (b(i, L) * np.sin(i * w * x)))
+# Expansión en serie de Fourier de la función f(t).
+def Sf(t, T, L, w, n):
+    a0 = a(0, T, L, w)
+    sum = np.zeros(np.size(t))
+    for i in np.arange(0, n):
+        sum += ((a(i, T, L, w) * np.cos(i * w * t)) + (b(i, T, L, w) * np.sin(i * w * t)))
     return (a0 / 2) + sum
 
+# Coeficiente "an".
+def a(n, T, L, w):
+    return (2 / T) * integrate.quad(lambda t: f(t) * np.cos(n * w * t), -L, L)[0]
+
+# Coeficiente "bn".
+def b(n, T, L, w):
+    return (2 / T) * integrate.quad(lambda t: f(t) * np.sin(n * w * t), -L, L)[0]
+
 def graficar():
-    # x axis.
-    plt.plot(t, np.zeros(np.size(t)), color = 'black')
+    T = 2 * np.pi #Periodo T de la función.
+    L = T / 2 #Intervalo de integración
+    w = (2 * np.pi) / T #Frecuencia angular de f.
+    inicio = -10
+    fin = 10
+    dur = fin - inicio #Duración
+    fs = 200 #Frecuencia de muestreo
+    n = 14 #Cantidad de armónicos
 
-    # y axis.
-    plt.plot(np.zeros(np.size(t)), t, color = 'black')
+    # Define "t" range.
+    t = np.linspace(inicio, fin, dur*fs, endpoint=None)
 
-    # Original signal.
-    plt.plot(t, f(t), linewidth = 1.5, label = 'Signal')
+    # Señal Original.
+    plt.plot(t, f(t), color = 'black', label = 'Señal original')
 
-    # Approximation signal (Fourier series coefficients).
-    plt.plot(t, Sf(t, L, 8), '.', color = 'red', linewidth = 1.5, label = 'Fourier series')
-
-    # Specify x and y axes limits.
-    plt.xlim([0, 5])
-    plt.ylim([-3, 3])
+    # Aproximación de la señal con la serie de fourier.
+    plt.plot(t, Sf(t, T, L, w, n), '.', color = 'red', label = 'Aproximación Fourier')
 
     plt.legend(loc = 'upper right', fontsize = '10')
-
+    plt.grid()
     plt.show()
 
 graficar() #python3 TP4-Punto10.py
