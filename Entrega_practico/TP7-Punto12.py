@@ -9,37 +9,29 @@ dos componentes armónicas, en las siguientes condiciones:
 en un factor de K (A1 = K A2).'''
 
 import numpy as np
-from scipy.io import wavfile
-import Utils
+import matplotlib.pyplot as plt
 
-"""
-#El filtro se aplica sobre el eje de la frecuencia
-#Deja pasar las bajas frecuencias, todo lo que sea menor a fc tomando de 0 a fs/2
 
-:param fc: frecuencia de corte
-:param fs: frecuencia de muestreo
-:param longitud: longitud de la señal
-:param ganancia: amplitud del filtro en la región de aceptación
-:returns: filtro pasa bajos """
-def filtro_pasa_bajos(fc, fs, longitud, ganancia):
-    eje_frec = np.linspace(0, fs, longitud, endpoint=None)
-    filtro = np.zeros(longitud, dtype=complex)
-    for i in range(len(eje_frec)):
-        if(eje_frec[i] < fc or eje_frec[i] > fs-fc):
-            filtro[i] = 1*ganancia
-    return filtro
+def graficar():
+    T = 1 #Periodo
+    N = 5 #Cantidad de períodos
+    inicio = 0
+    fin = 10 # El fin de la señal es la cantidad de períodos
+    dur = fin - inicio #Duración
+    
+    frec_Hz_seno1 = 50;  
+    frec_Hz_seno2 = 51; 
 
-def run():
-    frec_muestreo, señal_wav = wavfile.read('Tonocuadrado440Hz3seg.wav');
-    longitud = len(señal_wav)
-    ganancia = 1
-    frec_corte = 2500
+    fs_Hz = 44100 #Frecuencia de muestreo
 
-    filtro = filtro_pasa_bajos(frec_corte, frec_muestreo, longitud, ganancia)
-    señal_filtrada = Utils.aplicar_filtro(señal_wav, filtro)
-    espectro_filtrado = Utils.obtener_espectro(señal_filtrada)
+    # Definir el rango "t".
+    t = np.linspace(inicio, fin, dur*fs, endpoint=None)
 
-    #Utils.graficar(señal_wav, frec_muestreo)
-    #Utils.graficar(espectro_filtrado, frec_muestreo)
+    #plt.plot(eje_frec, espectro_cuadrada, color='red', label='cuadrada')
+    #plt.plot(eje_frec, espectro_aperiodica, color='black', label='aperiodica')
 
-run()#python3 Punto1.py
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+graficar()#python3 TP7-Punto12.py

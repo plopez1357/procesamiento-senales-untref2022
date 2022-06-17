@@ -4,6 +4,7 @@ forma aproximada los n primeros coeficientes de su desarrollo en serie de Fourie
 implementando la ecuación de análisis en su forma polar, generando las senoides adecuadas con
 la misma frecuencia demuestreo que la señal original.'''
 
+from cProfile import label
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as integrate
@@ -36,10 +37,10 @@ def graficar():
     L = T / 2 #Intervalo de integración
     w = (2 * np.pi) / T #Frecuencia angular de f.
     inicio = 0
-    fin = 10
+    fin = 20
     dur = fin - inicio #Duración
     fs = 200 #Frecuencia de muestreo
-    n = 14 #Cantidad de armónicos
+    n = 12 #Cantidad de armónicos
 
     # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs, endpoint=None)
@@ -50,7 +51,7 @@ def graficar():
     # Aproximación de la señal con la serie de fourier.
     plt.plot(t, Sf(t, T, L, w, n), '.', color='red', label='Aproximación Fourier')
 
-    plt.legend()
+    plt.legend(loc='upper right')
     plt.grid()
     plt.show()
 
