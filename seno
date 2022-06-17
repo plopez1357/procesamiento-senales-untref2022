@@ -1,0 +1,27 @@
+import math;
+import numpy as np;
+
+def generar_senial_sen_exponencial(amplitud, frecuencia, fase_inicial, inicio, fin, frecuencia_muestreo, duracion, exponente):
+    y = [];
+    senial_t = np.linspace(inicio,fin,duracion*frecuencia_muestreo, endpoint=True)
+    w = 2* math.pi * frecuencia
+    for a in senial_t:
+        y.append(amplitud*math.pow(math.sin((w*a + fase_inicial)),exponente));
+
+    return senial_t,y;
+
+def generar_senial_sen_exponencial_con_n(amplitud, frecuencia, fase_inicial, inicio, fin, frecuencia_muestreo, duracion, exponente,n):
+    y = [];
+    senial_t = np.linspace(inicio,fin,duracion*frecuencia_muestreo, endpoint=True)
+    w = 2* math.pi * frecuencia
+    for a in senial_t:
+        y.append(amplitud*math.pow(math.sin(n*w*a + fase_inicial),exponente));
+
+    return senial_t,y;
+
+# def generar_seno(x,amplitud, w, fase_inicial,exponente):
+#     return amplitud*math.pow(math.sin((w*x + fase_inicial)),exponente)
+
+def generar_seno(amplitud, frecuencia_hertz, fase_inicial, frecuencia_muestreo, inicio,fin):
+    senial_t = np.linspace(inicio,fin,int((fin-inicio)*frecuencia_muestreo), endpoint=True)
+    return senial_t,amplitud*np.sin((2*np.pi*frecuencia_hertz*np.array(senial_t) + fase_inicial))
