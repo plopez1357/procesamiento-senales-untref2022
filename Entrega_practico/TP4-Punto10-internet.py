@@ -5,7 +5,7 @@ implementando la ecuación de análisis en su forma polar, generando las senoide
 la misma frecuencia demuestreo que la señal original.'''
 
 import numpy as np
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 
 # Define "x" range.
 x = np.linspace(0, 10, 1000)
