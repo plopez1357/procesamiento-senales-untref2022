@@ -35,22 +35,22 @@ def graficar():
     T = 2 * np.pi #Periodo T de la función.
     L = T / 2 #Intervalo de integración
     w = (2 * np.pi) / T #Frecuencia angular de f.
-    inicio = -10
+    inicio = 0
     fin = 10
     dur = fin - inicio #Duración
     fs = 200 #Frecuencia de muestreo
     n = 14 #Cantidad de armónicos
 
-    # Define "t" range.
+    # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs, endpoint=None)
 
     # Señal Original.
-    plt.plot(t, f(t), color = 'black', label = 'Señal original')
+    plt.plot(t, f(t), color='black', label='Señal original')
 
     # Aproximación de la señal con la serie de fourier.
-    plt.plot(t, Sf(t, T, L, w, n), '.', color = 'red', label = 'Aproximación Fourier')
+    plt.plot(t, Sf(t, T, L, w, n), '.', color='red', label='Aproximación Fourier')
 
-    plt.legend(loc = 'upper right', fontsize = '10')
+    plt.legend()
     plt.grid()
     plt.show()
 
