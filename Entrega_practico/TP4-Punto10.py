@@ -7,7 +7,6 @@ la misma frecuencia demuestreo que la señal original.'''
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as integrate
-from scipy import signal
 import Utils
 
 # Señal de entrada periódica 
@@ -30,6 +29,13 @@ def a(n, T, L, w):
 def b(n, T, L, w):
     return (2 / T) * integrate.quad(lambda t: f(t, T) * np.sin(n * w * t), -L, L)[0]
 
+def graficar_sub_plot(axs, t, T, L, w, n):
+    axs.plot(t, f(t, T), color='black', label='Señal original')
+    axs.plot(t, Sf(t, T, L, w, n), '.', color='red', label='Aproximación Fourier')
+    axs.set_title('n = ' + str(n))
+    axs.legend(loc='upper right', fontsize = '6')
+    axs.grid()
+
 def graficar():
     T = 2 #Periodo T de la función.
     L = T / 2 #Intervalo de integración
@@ -38,19 +44,16 @@ def graficar():
     fin = 10
     dur = fin - inicio #Duración
     fs = 200 #Frecuencia de muestreo
-    n = 12 #Cantidad de armónicos
 
     # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs, endpoint=None)
 
-    # Señal Original.
-    plt.plot(t, f(t, T), color='black', label='Señal original')
+    fig, axs = plt.subplots(2, 2, sharey=True, figsize=[14, 11])
 
-    # Aproximación de la señal con la serie de fourier.
-    plt.plot(t, Sf(t, T, L, w, n), '.', color='red', label='Aproximación Fourier')
-
-    plt.legend(loc='upper right')
-    plt.grid()
+    graficar_sub_plot(axs[0][0], t, T, L, w, 3)
+    graficar_sub_plot(axs[0][1], t, T, L, w, 6)
+    graficar_sub_plot(axs[1][0], t, T, L, w, 9)
+    graficar_sub_plot(axs[1][1], t, T, L, w, 12)
     plt.show()
 
 graficar() #python3 TP4-Punto10.py

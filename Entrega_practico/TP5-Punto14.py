@@ -5,7 +5,6 @@ que sea igual a 'r (t) sobre un período únicamente. Graficar los espectros de 
 
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 import Utils
 
 def obtener_un_periodo(señal, T, fs):
