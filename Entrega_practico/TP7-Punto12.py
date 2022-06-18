@@ -12,9 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal.windows as wds
 from scipy.fft import fft, fftshift
-
-def generar_senoide(t, A, frec_Hz, φ):
-    return A * np.sin(2 * np.pi * frec_Hz * t + φ)
+import Utils
 
 def graficar():
     inicio = 0
@@ -28,8 +26,8 @@ def graficar():
     # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs_Hz, endpoint=None)
 
-    senoide_50Hz = generar_senoide(t, A_50, 50, φ)
-    senoide_51Hz = generar_senoide(t, A_51, 51, φ)
+    senoide_50Hz = Utils.generar_senoide(t, A_50, 50, φ)
+    senoide_51Hz = Utils.generar_senoide(t, A_51, 51, φ)
     suma_senoides = senoide_50Hz + senoide_51Hz
 
     ##

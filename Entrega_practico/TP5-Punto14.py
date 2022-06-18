@@ -5,22 +5,12 @@ que sea igual a 'r (t) sobre un período únicamente. Graficar los espectros de 
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import signal
 import math
+import Utils
 
 def obtener_un_periodo(señal, T, fs):
     señal_un_periodo = np.array(señal[0:T * fs])
     return np.concatenate((señal_un_periodo, np.zeros(len(señal) - len(señal_un_periodo))))
-
-def obtener_modulo_espectro(señal):
-    #Trasnfomamos de nuevo para tener obtener el espectro
-    señal_transformada = np.fft.fft(señal, norm='forward')
-    señal_modulo = np.abs(señal_transformada)
-    return señal_modulo
-
-
-def generar_cuadrada(t, T):
-    return signal.square((2 * np.pi / T) * t)
 
 def graficar():
     T = 500 #Periodo
@@ -33,11 +23,11 @@ def graficar():
     # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs, endpoint=None)
 
-    señal_cuadrada = generar_cuadrada(t, T)
+    señal_cuadrada = Utils.generar_señal_cuadrada(t, T)
     señal_cuadrada_aperiodica = obtener_un_periodo(señal_cuadrada, T, fs)
 
-    espectro_cuadrada = obtener_modulo_espectro(señal_cuadrada)
-    espectro_aperiodica = obtener_modulo_espectro(señal_cuadrada_aperiodica)
+    espectro_cuadrada = Utils.obtener_modulo_espectro(señal_cuadrada)
+    espectro_aperiodica = Utils.obtener_modulo_espectro(señal_cuadrada_aperiodica)
 
     eje_frec = np.linspace(0, fs, len(espectro_cuadrada), endpoint=None)
 
