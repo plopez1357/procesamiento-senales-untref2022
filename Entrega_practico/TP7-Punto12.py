@@ -19,36 +19,59 @@ def graficar():
     fin = 2
     dur = fin - inicio #Duración
     fs_Hz = 44100 #Frecuencia de muestreo
-    A_50 = 1 #amplitud
-    A_51 = 1*100
     φ = 0 #Fase
 
     # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs_Hz, endpoint=None)
 
-    senoide_50Hz = Utils.generar_senoide(t, A_50, 50, φ)
-    senoide_51Hz = Utils.generar_senoide(t, A_51, 51, φ)
+    senoide_50Hz = Utils.generar_senoide(t, 1, 50, φ)
+    senoide_51Hz = Utils.generar_senoide(t, 1, 51, φ)
     suma_senoides = senoide_50Hz + senoide_51Hz
 
     ##
-    window = wds.boxcar(88200)
+    window1 = wds.get_window('boxcar', dur*fs_Hz)
     #plt.plot(window)
     #plt.title("Boxcar window")
    # plt.ylabel("Amplitude")
    # plt.xlabel("Sample")
 
-    señal = suma_senoides * window
+    señal = suma_senoides * window1
 
-    #plt.figure()
-    A = fft(señal, 2048, norm='forward') / (len(window)/2.0)
-    print(A)
-    freq = np.linspace(-0.5, 0.5, len(A))
-    response = 20 * np.log10(np.abs(fftshift(A / abs(A).max())))
+    A = np.fft.rfft(señal, n=2*fs_Hz)
+    freq = np.fft.rfftfreq(2*fs_Hz, d=1/fs_Hz)
+    response = 20 * np.log10(np.abs(A))
     plt.plot(freq, response)
-    plt.axis([-0.5, 0.5, -120, 0])
-    plt.title("Frequency response of the boxcar window")
-    plt.ylabel("Normalized magnitude [dB]")
-    plt.xlabel("Normalized frequency [cycles per sample]")
+
+    plt.xlim(0, 100)
+    #plt.axis([-0.5, 0.5, -120, 0])
+    #plt.title("Frequency response of the boxcar window")
+    #plt.ylabel("Normalized magnitude [dB]")
+    #plt.xlabel("Normalized frequency [cycles per sample]")
+
+    ##
+
+    #plt.plot(t, suma_senoides, color='red', label='cuadrada')
+
+    plt.legend(loc='upper right')
+    plt.grid()
+    plt.show()
+
+    senoide_51hz_alta_amp = Utils.generar_senoide(t, 100, 53, φ) #con 51Hz no se pueden distinguir los lobulos ni siquiera con la ventana kaiser. En todo caso preguntar
+    suma_senoides2 = senoide_50Hz + senoide_51hz_alta_amp
+    window2 = wds.get_window(('kaiser', 10), dur*fs_Hz)
+
+    señal2 = suma_senoides2 * window2
+
+    A = np.fft.rfft(señal2, n=8*fs_Hz)
+    freq = np.fft.rfftfreq(8*fs_Hz, d=1/fs_Hz)
+    response = 20 * np.log10(np.abs(A))
+    plt.plot(freq, response)
+
+    plt.xlim(0, 100)
+    #plt.axis([-0.5, 0.5, -120, 0])
+    #plt.title("Frequency response of the boxcar window")
+    #plt.ylabel("Normalized magnitude [dB]")
+    #plt.xlabel("Normalized frequency [cycles per sample]")
 
     ##
 
