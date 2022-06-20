@@ -38,25 +38,25 @@ def graficar():
 
     label1 = 'Cuadrada'
     label2 = 'Aperiodica'
-    eje_frec_100, espectro_cuadrada_100, espectro_aperiodica_100 = generar_espectros(2, 3)
-    eje_frec_400, espectro_cuadrada_400, espectro_aperiodica_400 = generar_espectros(4, 3)
-    eje_frec_800, espectro_cuadrada_800, espectro_aperiodica_800 = generar_espectros(8, 3)
-    eje_frec_1600, espectro_cuadrada_1600, espectro_aperiodica_1600 = generar_espectros(16, 3)
+    eje_frec_2, espectro_cuadrada_2, espectro_aperiodica_2 = generar_espectros(2, 3)
+    eje_frec_4, espectro_cuadrada_4, espectro_aperiodica_4 = generar_espectros(4, 3)
+    eje_frec_8, espectro_cuadrada_8, espectro_aperiodica_8 = generar_espectros(8, 3)
+    eje_frec_16, espectro_cuadrada_16, espectro_aperiodica_16 = generar_espectros(16, 3)
     
 
-    Utils.graficar_sub_plot(axs[0][0], eje_frec_100, espectro_cuadrada_100, espectro_aperiodica_100, label1, label2, 'Periodo = 100')
+    Utils.graficar_sub_plot(axs[0][0], eje_frec_2, espectro_cuadrada_2, espectro_aperiodica_2, label1, label2, 'Periodo = 2')
     axs[0][0].set_xlim(0, 100)
     axs[0][0].set_ylim(0, 0.3)
 
-    Utils.graficar_sub_plot(axs[0][1], eje_frec_400, espectro_cuadrada_400, espectro_aperiodica_400, label1, label2, 'Periodo = 400')
+    Utils.graficar_sub_plot(axs[0][1], eje_frec_4, espectro_cuadrada_4, espectro_aperiodica_4, label1, label2, 'Periodo = 4')
     axs[0][1].set_xlim(0, 100)
     axs[0][1].set_ylim(0, 0.3)
 
-    Utils.graficar_sub_plot(axs[1][0], eje_frec_800, espectro_cuadrada_800, espectro_aperiodica_800, label1, label2, 'Periodo = 800')
+    Utils.graficar_sub_plot(axs[1][0], eje_frec_8, espectro_cuadrada_8, espectro_aperiodica_8, label1, label2, 'Periodo = 8')
     axs[1][0].set_xlim(0, 100)
     axs[1][0].set_ylim(0, 0.3)
     
-    Utils.graficar_sub_plot(axs[1][1], eje_frec_1600, espectro_cuadrada_1600, espectro_aperiodica_1600, label1, label2, 'Periodo = 1600')
+    Utils.graficar_sub_plot(axs[1][1], eje_frec_16, espectro_cuadrada_16, espectro_aperiodica_16, label1, label2, 'Periodo = 16')
     axs[1][1].set_xlim(0, 100)
     axs[1][1].set_ylim(0, 0.3)
 
