@@ -29,12 +29,7 @@ def a(n, T, L, w):
 def b(n, T, L, w):
     return (2 / T) * integrate.quad(lambda t: f(t, T) * np.sin(n * w * t), -L, L)[0]
 
-def graficar_sub_plot(axs, t, T, L, w, n):
-    axs.plot(t, f(t, T), color='black', label='Señal original')
-    axs.plot(t, Sf(t, T, L, w, n), '.', color='red', label='Aproximación Fourier')
-    axs.set_title('n = ' + str(n))
-    axs.legend(loc='upper right', fontsize = '6')
-    axs.grid()
+
 
 def graficar():
     T = 2 #Periodo T de la función.
@@ -50,10 +45,13 @@ def graficar():
 
     fig, axs = plt.subplots(2, 2, sharey=True, figsize=[14, 11])
 
-    graficar_sub_plot(axs[0][0], t, T, L, w, 3)
-    graficar_sub_plot(axs[0][1], t, T, L, w, 6)
-    graficar_sub_plot(axs[1][0], t, T, L, w, 9)
-    graficar_sub_plot(axs[1][1], t, T, L, w, 12)
+    señal_entrada = f(t, T)
+    label1 = 'Señal original'
+    label2 = 'Aproximación Fourier'
+    Utils.graficar_sub_plot(axs[0][0], t, señal_entrada, Sf(t, T, L, w, 3), label1, label2, 'n = 3')
+    Utils.graficar_sub_plot(axs[0][1], t, señal_entrada, Sf(t, T, L, w, 6), label1, label2, 'n = 6')
+    Utils.graficar_sub_plot(axs[1][0], t, señal_entrada, Sf(t, T, L, w, 9), label1, label2, 'n = 9')
+    Utils.graficar_sub_plot(axs[1][1], t, señal_entrada, Sf(t, T, L, w, 12), label1, label2, 'n = 12')
     plt.show()
 
 graficar() #python3 TP4-Punto10.py
