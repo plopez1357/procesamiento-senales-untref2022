@@ -14,6 +14,48 @@ import scipy.signal.windows as wds
 from scipy.fft import fft, fftshift
 import Utils
 
+def obtener_suma_senoides(t, A_1, A_2, f_1, f_2, φ):
+    senoide_1 = Utils.generar_senoide(t, A_1, f_1, φ)
+    senoide_2 = Utils.generar_senoide(t, A_2, f_2, φ)
+    return senoide_1 + senoide_2
+
+def obtener_señal_ventaneada(señal, window, n, d):
+    señal_ventana = señal * window
+    A = np.fft.rfft(señal_ventana, n)
+    freq = np.fft.rfftfreq(n, d)
+    señal_ventaneada = 20 * np.log10(np.abs(A))
+    return freq, señal_ventaneada
+
+def grafico_igual_amplitud(t, φ, fs_Hz):
+    suma_senoides = obtener_suma_senoides(t, 1, 1, 50, 51, φ)
+
+    window_boxcar = wds.get_window('boxcar', len(t))
+
+    freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_boxcar, 2*fs_Hz, 1/fs_Hz)
+
+    plt.plot(freq, señal_ventaneada, label='señal venteneada rectangular')
+
+    plt.xlim(0, 100)
+
+    plt.legend(loc='upper right')
+    plt.grid()
+    plt.show()
+
+def grafico_distinta_aplitud(t, φ, fs_Hz):
+    suma_senoides = obtener_suma_senoides(t, 1, 100, 50, 51, φ)
+
+    window_kaiser = wds.get_window(('kaiser', 10), len(t))
+
+    freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_kaiser, 8*fs_Hz, 1/fs_Hz)
+
+    plt.plot(freq, señal_ventaneada, label='señal venteneada kaiser')
+
+    plt.xlim(0, 100)
+
+    plt.legend(loc='upper right')
+    plt.grid()
+    plt.show()
+
 def graficar():
     inicio = 0
     fin = 2
@@ -24,61 +66,8 @@ def graficar():
     # Definir el rango "t".
     t = np.linspace(inicio, fin, dur*fs_Hz, endpoint=None)
 
-    senoide_50Hz = Utils.generar_senoide(t, 1, 50, φ)
-    senoide_51Hz = Utils.generar_senoide(t, 1, 51, φ)
-    suma_senoides = senoide_50Hz + senoide_51Hz
+    grafico_igual_amplitud(t, φ, fs_Hz)
 
-    ##
-    window1 = wds.get_window('boxcar', dur*fs_Hz)
-    #plt.plot(window)
-    #plt.title("Boxcar window")
-   # plt.ylabel("Amplitude")
-   # plt.xlabel("Sample")
-
-    señal = suma_senoides * window1
-
-    A = np.fft.rfft(señal, n=2*fs_Hz)
-    freq = np.fft.rfftfreq(2*fs_Hz, d=1/fs_Hz)
-    response = 20 * np.log10(np.abs(A))
-    plt.plot(freq, response)
-
-    plt.xlim(0, 100)
-    #plt.axis([-0.5, 0.5, -120, 0])
-    #plt.title("Frequency response of the boxcar window")
-    #plt.ylabel("Normalized magnitude [dB]")
-    #plt.xlabel("Normalized frequency [cycles per sample]")
-
-    ##
-
-    #plt.plot(t, suma_senoides, color='red', label='cuadrada')
-
-    plt.legend(loc='upper right')
-    plt.grid()
-    plt.show()
-
-    senoide_51hz_alta_amp = Utils.generar_senoide(t, 100, 53, φ) #con 51Hz no se pueden distinguir los lobulos ni siquiera con la ventana kaiser. En todo caso preguntar
-    suma_senoides2 = senoide_50Hz + senoide_51hz_alta_amp
-    window2 = wds.get_window(('kaiser', 10), dur*fs_Hz)
-
-    señal2 = suma_senoides2 * window2
-
-    A = np.fft.rfft(señal2, n=8*fs_Hz)
-    freq = np.fft.rfftfreq(8*fs_Hz, d=1/fs_Hz)
-    response = 20 * np.log10(np.abs(A))
-    plt.plot(freq, response)
-
-    plt.xlim(0, 100)
-    #plt.axis([-0.5, 0.5, -120, 0])
-    #plt.title("Frequency response of the boxcar window")
-    #plt.ylabel("Normalized magnitude [dB]")
-    #plt.xlabel("Normalized frequency [cycles per sample]")
-
-    ##
-
-    #plt.plot(t, suma_senoides, color='red', label='cuadrada')
-
-    plt.legend(loc='upper right')
-    plt.grid()
-    plt.show()
+    grafico_distinta_aplitud(t, φ, fs_Hz)
 
 graficar()#python3 TP7-Punto12.py
