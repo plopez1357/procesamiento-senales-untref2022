@@ -31,9 +31,14 @@ def grafico_igual_amplitud(t, φ, fs_Hz):
 
     window_boxcar = wds.get_window('boxcar', len(t))
 
-    freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_boxcar, 2*fs_Hz, 1/fs_Hz)
+    freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_boxcar, len(t), 1/fs_Hz)
 
     plt.plot(freq, señal_ventaneada, label='señal venteneada rectangular')
+
+    plt.title("Señal con armonicas de 50 y 51 Hz y amplitud A1 = A2 ventaneada con ventana rectangular. N = 2*fs")
+
+    plt.xlabel("Frecuencia (Hz)")
+    plt.ylabel("Amplitud (dB)")
 
     plt.xlim(0, 100)
 
@@ -44,11 +49,16 @@ def grafico_igual_amplitud(t, φ, fs_Hz):
 def grafico_distinta_aplitud(t, φ, fs_Hz):
     suma_senoides = obtener_suma_senoides(t, 1, 100, 50, 51, φ)
 
-    window_kaiser = wds.get_window(('kaiser', 10), len(t))
+    window_kaiser = wds.get_window('boxcar', len(t))
 
-    freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_kaiser, 8*fs_Hz, 1/fs_Hz)
+    freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_kaiser, len(t), 1/fs_Hz)
 
-    plt.plot(freq, señal_ventaneada, label='señal venteneada kaiser')
+    plt.plot(freq, señal_ventaneada, label='señal venteneada rectangular')
+
+    plt.title("Señal con armonicas de 50 y 51 Hz y amplitud A2 = 100 * A1 ventaneada con ventana rectangular. N = 2*fs")
+
+    plt.xlabel("Frecuencia (Hz)")
+    plt.ylabel("Amplitud (dB)")
 
     plt.xlim(0, 100)
 
