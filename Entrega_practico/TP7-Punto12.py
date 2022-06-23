@@ -40,27 +40,27 @@ def grafico_igual_amplitud(t, φ, fs_Hz):
     plt.xlabel("Frecuencia (Hz)")
     plt.ylabel("Amplitud (dB)")
 
-    plt.xlim(0, 100)
+    plt.xlim(40, 60)
 
     plt.legend(loc='upper right')
     plt.grid()
     plt.show()
 
 def grafico_distinta_aplitud(t, φ, fs_Hz):
-    suma_senoides = obtener_suma_senoides(t, 1, 100, 50, 51, φ)
+    suma_senoides = obtener_suma_senoides(t, 1, 100, 50, 52, φ)
 
-    window_kaiser = wds.get_window('boxcar', len(t))
+    window_kaiser = wds.get_window('hamming', len(t))
 
     freq, señal_ventaneada = obtener_señal_ventaneada(suma_senoides, window_kaiser, len(t), 1/fs_Hz)
 
-    plt.plot(freq, señal_ventaneada, label='señal venteneada rectangular')
+    plt.plot(freq, señal_ventaneada, label='señal venteneada hamming')
 
-    plt.title("Señal con armonicas de 50 y 51 Hz y amplitud A2 = 100 * A1 ventaneada con ventana rectangular. N = 2*fs")
+    plt.title("Señal con armonicas de 50 y 52 Hz y amplitud A2 = 100 * A1 ventaneada con ventana hamming. N = 2*fs")
 
     plt.xlabel("Frecuencia (Hz)")
     plt.ylabel("Amplitud (dB)")
 
-    plt.xlim(0, 100)
+    plt.xlim(40, 60)
 
     plt.legend(loc='upper right')
     plt.grid()

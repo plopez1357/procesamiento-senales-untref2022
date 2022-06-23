@@ -45,20 +45,20 @@ def graficar():
     
 
     Utils.graficar_sub_plot(axs[0][0], eje_frec_2, espectro_cuadrada_2, espectro_aperiodica_2, label1, label2, 'Periodo = 2')
-    axs[0][0].set_xlim(0, 100)
-    axs[0][0].set_ylim(0, 0.3)
+    axs[0][0].set_xlim(0, 50)
+    axs[0][0].set_ylim(0, 0.15)
 
     Utils.graficar_sub_plot(axs[0][1], eje_frec_4, espectro_cuadrada_4, espectro_aperiodica_4, label1, label2, 'Periodo = 4')
-    axs[0][1].set_xlim(0, 100)
-    axs[0][1].set_ylim(0, 0.3)
+    axs[0][1].set_xlim(0, 50)
+    axs[0][1].set_ylim(0, 0.15)
 
     Utils.graficar_sub_plot(axs[1][0], eje_frec_8, espectro_cuadrada_8, espectro_aperiodica_8, label1, label2, 'Periodo = 8')
-    axs[1][0].set_xlim(0, 100)
-    axs[1][0].set_ylim(0, 0.3)
+    axs[1][0].set_xlim(0, 50)
+    axs[1][0].set_ylim(0, 0.15)
     
     Utils.graficar_sub_plot(axs[1][1], eje_frec_16, espectro_cuadrada_16, espectro_aperiodica_16, label1, label2, 'Periodo = 16')
-    axs[1][1].set_xlim(0, 100)
-    axs[1][1].set_ylim(0, 0.3)
+    axs[1][1].set_xlim(0, 50)
+    axs[1][1].set_ylim(0, 0.15)
 
     plt.show()
 
