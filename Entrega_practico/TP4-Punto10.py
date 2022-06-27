@@ -17,7 +17,7 @@ def f(t, T):
 def Sf(t, T, L, w, n):
     a0 = a(0, T, L, w)
     sum = np.zeros(np.size(t))
-    for i in np.arange(0, n):
+    for i in np.arange(1, n+1):
         sum += ((a(i, T, L, w) * np.cos(i * w * t)) + (b(i, T, L, w) * np.sin(i * w * t)))
     return (a0 / 2) + sum
 
@@ -28,8 +28,6 @@ def a(n, T, L, w):
 # Coeficiente "bn".
 def b(n, T, L, w):
     return (2 / T) * integrate.quad(lambda t: f(t, T) * np.sin(n * w * t), -L, L)[0]
-
-
 
 def graficar():
     T = 2 #Periodo T de la función.
