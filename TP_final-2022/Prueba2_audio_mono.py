@@ -20,17 +20,17 @@ señales = [señal1, señal2, señal3]
 #Grafico las 3 señales
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
 
-ax1.stem(t, señal1, markerfmt = 'r')
+ax1.stem(t, señal1, 'r', markerfmt = ' ', use_line_collection = True)
 ax1.set_title('Señal 1')
 ax1.set_ylabel('Amplitud (A)')
 ax1.set_xlabel('Tiempo (t)')
 
-ax2.stem(t, señal2, markerfmt = 'y')
+ax2.stem(t, señal2, 'y', markerfmt = ' ', use_line_collection = True)
 ax2.set_title('Señal 2')
 ax2.set_ylabel('Amplitud (A)')
 ax2.set_xlabel('Tiempo (t)')
 
-ax3.stem(t, señal3, markerfmt = 'b')
+ax3.stem(t, señal3, 'b', markerfmt = ' ', use_line_collection = True)
 ax3.set_title('Señal 3')
 ax3.set_ylabel('Amplitud (A)')
 ax3.set_xlabel('Tiempo (t)')
@@ -48,9 +48,9 @@ dTotal = d * cantCanales
 tCanal = np.linspace(0, dTotal, fs1 * dTotal)
 
 plt.figure(figsize=(12,2))
-plt.stem(tCanal[0::3], señalMultiplexada[0::3], markerfmt = 'r', use_line_collection = True)
-plt.stem(tCanal[1::3], señalMultiplexada[1::3], markerfmt = 'y', use_line_collection = True)
-plt.stem(tCanal[2::3], señalMultiplexada[2::3], markerfmt = 'b', use_line_collection = True)
+plt.stem(tCanal[0::3], señalMultiplexada[0::3], 'r', markerfmt = ' ', use_line_collection = True)
+plt.stem(tCanal[1::3], señalMultiplexada[1::3], 'y', markerfmt = ' ', use_line_collection = True)
+plt.stem(tCanal[2::3], señalMultiplexada[2::3], 'b', markerfmt = ' ', use_line_collection = True)
 plt.title('Señal multiplexada')
 plt.ylabel('Amplitud (A)')
 plt.xlabel('Tiempo (t)')
@@ -64,19 +64,19 @@ señalDemultiplexada = Receptor.demultiplexarSeñal(señalMultiplexada, cantCana
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
 
 senal1_demultiplexada = señalDemultiplexada[0]
-ax1.stem(t, senal1_demultiplexada, markerfmt = 'r', use_line_collection = True)
+ax1.stem(t, senal1_demultiplexada, 'r', markerfmt = ' ', use_line_collection = True)
 ax1.set_title('Señal 1 demultiplexada')
 ax1.set_ylabel('Amplitud (A)')
 ax1.set_xlabel('Tiempo (t)')
 
 senal2_demultiplexada = señalDemultiplexada[1]
-ax2.stem(t, senal2_demultiplexada, markerfmt = 'y', use_line_collection = True)
+ax2.stem(t, senal2_demultiplexada, 'y', markerfmt = ' ', use_line_collection = True)
 ax2.set_title('Señal 2 demultiplexada')
 ax2.set_ylabel('Amplitud (A)')
 ax2.set_xlabel('Tiempo (t)')
 
 senal3_demultiplexada = señalDemultiplexada[2]
-ax3.stem(t, senal3_demultiplexada, markerfmt = 'b', use_line_collection = True)
+ax3.stem(t, senal3_demultiplexada, 'b', markerfmt = ' ', use_line_collection = True)
 ax3.set_title('Señal 3 demultiplexada')
 ax3.set_ylabel('Amplitud (A)')
 ax3.set_xlabel('Tiempo (t)')
