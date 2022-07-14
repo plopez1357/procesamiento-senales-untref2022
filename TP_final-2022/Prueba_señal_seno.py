@@ -2,7 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import Transmisor
 import Receptor
-import Utils
+
+def generarSeno(t, f, A):
+    return A * np.sin(2 * np.pi * f * t)
 
 #Armado de señales de prueba
 fs = 100
@@ -12,13 +14,13 @@ d = 1
 t = np.linspace(0, d, fs * d)
 
 f1 = 200
-señal1 = Utils.generarSeno(t, f1, A)
+señal1 = generarSeno(t, f1, A)
 
 f2 = 300
-señal2 = Utils.generarSeno(t, f2, A)
+señal2 = generarSeno(t, f2, A)
 
 f3 = 500
-señal3 = Utils.generarSeno(t, f3, A)
+señal3 = generarSeno(t, f3, A)
 
 señales = [señal1, señal2, señal3]
 
