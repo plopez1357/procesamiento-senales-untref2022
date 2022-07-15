@@ -21,17 +21,17 @@ señales = [señal1, señal2, señal3]
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
 
 ax1.stem(t, señal1, 'r', markerfmt = ' ', use_line_collection = True)
-ax1.set_title('Señal 1')
+ax1.set_title('Señal Audio Clarinete')
 ax1.set_ylabel('Amplitud (A)')
 ax1.set_xlabel('Tiempo (t)')
 
 ax2.stem(t, señal2, 'y', markerfmt = ' ', use_line_collection = True)
-ax2.set_title('Señal 2')
+ax2.set_title('Señal Audio Saxo')
 ax2.set_ylabel('Amplitud (A)')
 ax2.set_xlabel('Tiempo (t)')
 
 ax3.stem(t, señal3, 'b', markerfmt = ' ', use_line_collection = True)
-ax3.set_title('Señal 3')
+ax3.set_title('Señal Audio Trompeta')
 ax3.set_ylabel('Amplitud (A)')
 ax3.set_xlabel('Tiempo (t)')
 
